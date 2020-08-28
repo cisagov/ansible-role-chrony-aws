@@ -1,4 +1,18 @@
 ---
+- name: Load var file with package names based on the OS type
+  include_vars: "{{ lookup('first_found', params) }}"
+  vars:
+    params:
+      files:
+        # Add regex_replace() filters to remove spaces and
+        # slashes. This allows the OS family/distribution for Kali,
+        # "Kali GNU/Linux", to be easily mapped to a vars file.
+        - "{{ ansible_distribution | regex_replace('[ /]', '_') }}_{{ ansible_distribution_version }}.yml"
+        - "{{ ansible_distribution | regex_replace('[ /]', '_') }}.yml"
+        - "{{ ansible_os_family | regex_replace('[ /]', '_') }}.yml"
+      paths:
+        - "{{ role_path }}/vars"
+
 - name: Install chrony
   package:
     name:
@@ -6,7 +20,7 @@
 
 - name: Enable chrony at boot
   service:
-    name: chrony
+    name: "{{ service_name }}"
     enabled: yes
 
 - name: Configure chrony to use Amazon Time Sync Service
