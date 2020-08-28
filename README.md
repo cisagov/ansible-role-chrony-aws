@@ -4,13 +4,14 @@
 [![Total alerts](https://img.shields.io/lgtm/alerts/g/cisagov/ansible-role-chrony-aws.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/cisagov/ansible-role-chrony-aws/alerts/)
 [![Language grade: Python](https://img.shields.io/lgtm/grade/python/g/cisagov/ansible-role-chrony-aws.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/cisagov/ansible-role-chrony-aws/context:python)
 
-This is a skeleton project that can be used to quickly get a new
-[cisagov](https://github.com/cisagov) Ansible role GitHub project
-started.  This skeleton project contains
-[licensing information](LICENSE), as well as
-[pre-commit hooks](https://pre-commit.com) and
-[GitHub Actions](https://github.com/features/actions) configurations
-appropriate for an Ansible role.
+An Ansible role for installing
+[chrony](https://en.wikipedia.org/wiki/Chrony) and configuring it to
+use [the Amazon Time Sync
+Service](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/set-time.html).
+Note that the Amazon Time Sync Service is available at the
+`169.254.169.123` IP address for any instance running in a VPC, and
+therefore does not require internet access or any changes to security
+group or network ACL rules.
 
 ## Requirements ##
 
@@ -33,7 +34,7 @@ Here's how to use it in a playbook:
   become: yes
   become_method: sudo
   roles:
-    - skeleton
+    - chrony
 ```
 
 ## Contributing ##
@@ -56,4 +57,4 @@ with this waiver of copyright interest.
 
 ## Author Information ##
 
-First Last - <first.last@trio.dhs.gov>
+Shane Frasier - <jeremy.frasier@trio.dhs.gov>

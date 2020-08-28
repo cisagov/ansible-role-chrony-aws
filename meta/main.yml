@@ -1,10 +1,12 @@
 ---
 galaxy_info:
-  author: First Last
-  description: Skeleton Ansible role
+  author: Shane Frasier
+  description: Install chrony and configure it to use the Amazon Time Sync Service
   company: CISA Cyber Assessments
   galaxy_tags:
-    - skeleton
+    - chrony
+    - aws
+    - ntp
   license: CC0
   min_ansible_version: 2.0
   platforms:
@@ -27,6 +29,6 @@ galaxy_info:
       versions:
         - bionic
         - xenial
-  role_name: skeleton
+  role_name: chrony_aws
 
 dependencies: []
