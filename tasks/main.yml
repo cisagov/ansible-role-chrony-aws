@@ -4,6 +4,11 @@
     name:
       - chrony
 
+- name: Enable chrony at boot
+  service:
+    name: chrony
+    enabled: yes
+
 - name: Configure chrony to use Amazon Time Sync Service
   block:
     - name: Comment out existing pool and server lines
