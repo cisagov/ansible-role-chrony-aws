@@ -1,2 +1,24 @@
 ---
-# tasks file for skeleton
+- name: Install chrony
+  package:
+    name:
+      - chrony
+
+- name: Configure chrony to use Amazon Time Sync Service
+  block:
+    - name: Comment out existing pool and server lines
+      lineinfile:
+        backrefs: yes
+        line: '# \1'
+        path: /etc/chrony/chrony.conf
+        regexp: ^({{ item }}.*)
+      loop:
+        - pool
+        - server
+    - name: Add a server line for Amazon Time Sync Service
+      lineinfile:
+        line: server 169.254.169.123 prefer iburst
+        path: /etc/chrony/chrony.conf
+  # AmazonLinux is already configured to use Amazon Time Sync Service
+  when:
+    - ansible_distribution != "Amazon"
