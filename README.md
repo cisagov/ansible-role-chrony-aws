@@ -7,7 +7,7 @@
 An Ansible role for installing
 [chrony](https://en.wikipedia.org/wiki/Chrony) and configuring it to
 use [the Amazon Time Sync
-Service](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/set-time.html).
+Service](https://aws.amazon.com/blogs/aws/keeping-time-with-amazon-time-sync-service/).
 Note that the Amazon Time Sync Service is available at the
 `169.254.169.123` IP address for any instance running in a VPC, and
 therefore does not require internet access or any changes to security
