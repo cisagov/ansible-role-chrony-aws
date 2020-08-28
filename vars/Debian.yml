@@ -1,3 +1,6 @@
 ---
 # The chrony service name
 service_name: chrony
+
+# The chrony config file
+config_file: /etc/chrony/chrony.conf

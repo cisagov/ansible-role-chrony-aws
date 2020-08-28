@@ -29,7 +29,7 @@
       lineinfile:
         backrefs: yes
         line: '# \1'
-        path: /etc/chrony/chrony.conf
+        path: "{{ config_file }}"
         regexp: ^({{ item }}.*)
       loop:
         - pool
@@ -37,7 +37,7 @@
     - name: Add a server line for Amazon Time Sync Service
       lineinfile:
         line: server 169.254.169.123 prefer iburst
-        path: /etc/chrony/chrony.conf
+        path: "{{ config_file }}"
   # AmazonLinux is already configured to use Amazon Time Sync Service
   when:
     - ansible_distribution != "Amazon"

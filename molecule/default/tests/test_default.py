@@ -20,25 +20,44 @@ def test_packages(host, pkg):
 
 def check_chrony_enabled(host):
     """Ensure that chrony is enabled at boot."""
+    svc = None
     if (
         host.system_info.distribution == "debian"
         or host.system_info.distribution == "kali"
         or host.system_info.distribution == "ubuntu"
     ):
-        assert host.service("chrony").is_enabled
+        svc = "chrony"
     elif (
         host.system_info.distribution == "redhat"
         or host.system_info.distribution == "amzn"
     ):
-        assert host.service("chronyd").is_enabled
+        svc = "chronyd"
     else:
         # Should never get here
         assert False
 
+    assert host.service(svc).is_enabled
+
 
 def check_config(host):
     """Ensure that chrony is configured as expected."""
-    f = host.file("/etc/chrony/chrony.conf")
+    filename = None
+    if (
+        host.system_info.distribution == "debian"
+        or host.system_info.distribution == "kali"
+        or host.system_info.distribution == "ubuntu"
+    ):
+        filename = "/etc/chrony/chrony.conf"
+    elif (
+        host.system_info.distribution == "redhat"
+        or host.system_info.distribution == "amzn"
+    ):
+        filename = "/etc/chrony/chrony.conf"
+    else:
+        # Should never get here
+        assert False
+
+    f = host.file(filename)
     assert f.exists
     assert f.is_file
     assert f.contains("server 169.254.169.123 prefer iburst")
