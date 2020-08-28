@@ -18,10 +18,22 @@ def test_packages(host, pkg):
     assert host.package(pkg).is_installed
 
 
-@pytest.mark.parametrize("svc", ["chrony"])
-def check_services_enabled(host, svc):
+def check_chrony_enabled(host):
     """Ensure that chrony is enabled at boot."""
-    assert host.service(svc).is_enabled
+    if (
+        host.system_info.distribution == "debian"
+        or host.system_info.distribution == "kali"
+        or host.system_info.distribution == "ubuntu"
+    ):
+        assert host.service("chrony").is_enabled
+    elif (
+        host.system_info.distribution == "redhat"
+        or host.system_info.distribution == "amzn"
+    ):
+        assert host.service("chronyd").is_enabled
+    else:
+        # Should never get here
+        assert False
 
 
 def check_config(host):
