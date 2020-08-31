@@ -25,15 +25,19 @@
 
 - name: Configure chrony to use Amazon Time Sync Service
   block:
+    # ansible-lint complains that we have not set the mode for the two
+    # replace tasks, but since we are at most modifying the file in
+    # place it should not be necessary to do so.  Hence the noqa 209
+    # for each of those tasks.
     - name: Comment out existing pool lines
-      replace:
+      replace: # noqa 208
         path: "{{ config_file }}"
         regexp: ^(pool .*)
         replace: '# \1'
     - name: >
         Comment out existing server lines that do not correspond to the
         Amazon Time Sync Service
-      replace:
+      replace: # noqa 208
         path: "{{ config_file }}"
         # The negative lookahead makes this regex match lines that
         # start with "server " but _do not_ look like "server
