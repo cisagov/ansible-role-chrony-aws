@@ -26,23 +26,21 @@
 - name: Configure chrony to use Amazon Time Sync Service
   block:
     - name: Comment out existing pool lines
-      lineinfile:
-        backrefs: yes
-        line: '# \1'
+      replace:
         path: "{{ config_file }}"
         regexp: ^(pool .*)
+        replace: '# \1'
     - name: >
         Comment out existing server lines that do not correspond to the
         Amazon Time Sync Service
-      lineinfile:
-        backrefs: yes
-        line: '# \1'
+      replace:
         path: "{{ config_file }}"
         # The negative lookahead makes this regex match lines that
         # start with "server " but _do not_ look like "server
         # 169.254.169.123 prefer iburst", which is exactly what we
         # want.
         regexp: ^(server (?!169\.254\.169\.123 prefer iburst).*)
+        replace: '# \1'
     - name: Add a server line for Amazon Time Sync Service
       lineinfile:
         line: server 169.254.169.123 prefer iburst
