@@ -42,8 +42,10 @@
         regexp: ^(server (?!169\.254\.169\.123 prefer iburst).*)
         replace: '# \1'
     - name: Add a server line for Amazon Time Sync Service
-      lineinfile:
-        line: server 169.254.169.123 prefer iburst
+      blockinfile:
+        block: |
+          # Sync with Amazon Time Sync Service
+          server 169.254.169.123 prefer iburst
         path: "{{ config_file }}"
   # AmazonLinux is already configured to use Amazon Time Sync Service
   when:
