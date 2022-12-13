@@ -1,5 +1,4 @@
 ---
-
 # Any ignore directives should be uncommented in downstream projects to disable
 # Dependabot updates for the given dependency. Downstream projects will get
 # these updates when the pull request(s) in the appropriate skeleton are merged
@@ -12,15 +11,20 @@ updates:
     schedule:
       interval: "weekly"
     ignore:
+      # Managed by cisagov/skeleton-generic
       - dependency-name: actions/cache
       - dependency-name: actions/checkout
+      - dependency-name: actions/setup-go
       - dependency-name: actions/setup-python
+      - dependency-name: hashicorp/setup-terraform
+      - dependency-name: mxschmitt/action-tmate
 
   - package-ecosystem: "pip"
     directory: "/"
     schedule:
       interval: "weekly"
     ignore:
+      # Managed by cisagov/skeleton-ansible-role
       - dependency-name: "ansible"
       - dependency-name: "ansible-lint"
 
