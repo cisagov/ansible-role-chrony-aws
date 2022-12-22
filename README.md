@@ -40,9 +40,9 @@ Here's how to use it in a playbook:
   become: yes
   become_method: sudo
   tasks:
-    - name: Install and configure chrony
+    - name: Install and configure chrony for AWS
       ansible.builtin.include_role:
-        name: chrony
+        name: chrony_aws
 ```
 
 ## Contributing ##
