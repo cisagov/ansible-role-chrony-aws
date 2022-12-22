@@ -1,8 +1,7 @@
 # ansible-role-chrony-aws #
 
 [![GitHub Build Status](https://github.com/cisagov/ansible-role-chrony-aws/workflows/build/badge.svg)](https://github.com/cisagov/ansible-role-chrony-aws/actions)
-[![Total alerts](https://img.shields.io/lgtm/alerts/g/cisagov/ansible-role-chrony-aws.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/cisagov/ansible-role-chrony-aws/alerts/)
-[![Language grade: Python](https://img.shields.io/lgtm/grade/python/g/cisagov/ansible-role-chrony-aws.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/cisagov/ansible-role-chrony-aws/context:python)
+[![CodeQL](https://github.com/cisagov/ansible-role-chrony-aws/workflows/CodeQL/badge.svg)](https://github.com/cisagov/ansible-role-chrony-aws/actions/workflows/codeql-analysis.yml)
 
 An Ansible role for installing
 [chrony](https://en.wikipedia.org/wiki/Chrony) and configuring it to
@@ -40,8 +39,10 @@ Here's how to use it in a playbook:
 - hosts: all
   become: yes
   become_method: sudo
-  roles:
-    - chrony
+  tasks:
+    - name: Install and configure chrony for AWS
+      ansible.builtin.include_role:
+        name: chrony_aws
 ```
 
 ## Contributing ##
