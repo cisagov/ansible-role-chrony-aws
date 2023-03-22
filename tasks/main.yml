@@ -1,6 +1,6 @@
 ---
 - name: Load var file with package names based on the OS type
-  include_vars: "{{ lookup('first_found', params) }}"
+  ansible.builtin.include_vars: "{{ lookup('first_found', params) }}"
   vars:
     params:
       files:
@@ -11,26 +11,26 @@
         - "{{ role_path }}/vars"
 
 - name: Install chrony
-  package:
+  ansible.builtin.package:
     name:
       - chrony
 
 - name: Enable chrony at boot
-  service:
+  ansible.builtin.service:
     name: "{{ service_name }}"
     enabled: yes
 
 - name: Configure chrony to use Amazon Time Sync Service
   block:
     - name: Comment out existing pool lines
-      replace:
+      ansible.builtin.replace:
         path: "{{ config_file }}"
         regexp: ^(pool .*)
         replace: '# \1'
     - name: >
         Comment out existing server lines that do not correspond to the
         Amazon Time Sync Service
-      replace:
+      ansible.builtin.replace:
         path: "{{ config_file }}"
         # The negative lookahead makes this regex match lines that
         # start with "server " but _do not_ look like "server
@@ -39,7 +39,7 @@
         regexp: ^(server (?!169\.254\.169\.123 prefer iburst).*)
         replace: '# \1'
     - name: Add a server line for Amazon Time Sync Service
-      blockinfile:
+      ansible.builtin.blockinfile:
         block: |
           # Sync with Amazon Time Sync Service
           server 169.254.169.123 prefer iburst
