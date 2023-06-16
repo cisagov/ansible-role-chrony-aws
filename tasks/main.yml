@@ -21,6 +21,9 @@
     name: "{{ service_name }}"
 
 - name: Configure chrony to use Amazon Time Sync Service
+  # AmazonLinux is already configured to use Amazon Time Sync Service
+  when:
+    - ansible_distribution != "Amazon"
   block:
     - name: Comment out existing pool lines
       ansible.builtin.replace:
@@ -44,6 +47,3 @@
           # Sync with Amazon Time Sync Service
           server 169.254.169.123 prefer iburst
         path: "{{ config_file }}"
-  # AmazonLinux is already configured to use Amazon Time Sync Service
-  when:
-    - ansible_distribution != "Amazon"
