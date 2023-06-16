@@ -21,7 +21,7 @@
     name: "{{ service_name }}"
 
 - name: Configure chrony to use Amazon Time Sync Service
-  # AmazonLinux is already configured to use Amazon Time Sync Service
+  # Amazon Linux is already configured to use Amazon Time Sync Service
   when:
     - ansible_distribution != "Amazon"
   block:
