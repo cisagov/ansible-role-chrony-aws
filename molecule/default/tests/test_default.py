@@ -21,20 +21,13 @@ def test_packages(host, pkg):
 def check_chrony_enabled(host):
     """Ensure that chrony is enabled at boot."""
     svc = None
-    if (
-        host.system_info.distribution == "debian"
-        or host.system_info.distribution == "kali"
-        or host.system_info.distribution == "ubuntu"
-    ):
+    if host.system_info.distribution in ["debian", "kali", "ubuntu"]:
         svc = "chrony"
-    elif (
-        host.system_info.distribution == "redhat"
-        or host.system_info.distribution == "amzn"
-    ):
+    elif host.system_info.distribution in ["amzn", "redhat"]:
         svc = "chronyd"
     else:
         # Should never get here
-        assert False
+        assert False, f"Unknown distribution {host.system_info.distribution}"
 
     assert host.service(svc).is_enabled
 
@@ -42,20 +35,11 @@ def check_chrony_enabled(host):
 def check_config(host):
     """Ensure that chrony is configured as expected."""
     filename = None
-    if (
-        host.system_info.distribution == "debian"
-        or host.system_info.distribution == "kali"
-        or host.system_info.distribution == "ubuntu"
-    ):
-        filename = "/etc/chrony/chrony.conf"
-    elif (
-        host.system_info.distribution == "redhat"
-        or host.system_info.distribution == "amzn"
-    ):
+    if host.system_info.distribution in ["amzn", "debian", "kali", "redhat", "ubuntu"]:
         filename = "/etc/chrony/chrony.conf"
     else:
         # Should never get here
-        assert False
+        assert False, f"Unknown distribution {host.system_info.distribution}"
 
     f = host.file(filename)
     assert f.exists
