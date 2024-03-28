@@ -17,7 +17,7 @@
 
 - name: Enable chrony at boot
   ansible.builtin.service:
-    enabled: yes
+    enabled: true
     name: "{{ service_name }}"
 
 - name: Configure chrony to use Amazon Time Sync Service
