@@ -29,6 +29,10 @@
       delay: 5
       when: ansible_service_mgr == "systemd"
       changed_when: false
+      # The systemctl is-system-running command can return a nonzero
+      # value if the status is degraded:
+      # https://man.archlinux.org/man/systemctl.1#System_Commands
+      failed_when: false
 
 - name: Import upgrade playbook
   ansible.builtin.import_playbook: upgrade.yml
