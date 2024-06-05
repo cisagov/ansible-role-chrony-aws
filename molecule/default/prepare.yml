@@ -1,9 +1,7 @@
 ---
 # When installing packages during later steps, the Fedora Docker
-# images we are using (geerlingguy/docker-fedora32-ansible:latest and
-# cisagov/docker-fedora33-ansible:latest) can throw sporadic errors
-# like: "No such file or directory:
-# '/var/cache/dnf/metadata_lock.pid'".
+# images we are using can throw sporadic errors like: "No such file or
+# directory: '/var/cache/dnf/metadata_lock.pid'".
 #
 # The fix is to ensure that systemd finishes initializing before
 # continuing on to the converge tasks.  For details see:
