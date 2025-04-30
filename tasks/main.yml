@@ -29,6 +29,11 @@
       ansible.builtin.replace:
         path: "{{ config_file }}"
         regexp: ^(pool .*)
+        # yamllint complains about this quoted string, but we want to
+        # ensure that regex special characters do not conflict with
+        # YAML special characters.
+        #
+        # yamllint disable-line rule:quoted-strings
         replace: '# \1'
     - name: >
         Comment out existing server lines that do not correspond to the
@@ -40,6 +45,11 @@
         # 169.254.169.123 prefer iburst", which is exactly what we
         # want.
         regexp: ^(server (?!169\.254\.169\.123 prefer iburst).*)
+        # yamllint complains about this quoted string, but we want to
+        # ensure that regex special characters do not conflict with
+        # YAML special characters.
+        #
+        # yamllint disable-line rule:quoted-strings
         replace: '# \1'
     - name: Add a server line for Amazon Time Sync Service
       ansible.builtin.blockinfile:
