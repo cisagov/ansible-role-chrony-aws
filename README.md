@@ -1,6 +1,7 @@
 # ansible-role-chrony-aws #
 
 [![GitHub Build Status](https://github.com/cisagov/ansible-role-chrony-aws/workflows/build/badge.svg)](https://github.com/cisagov/ansible-role-chrony-aws/actions)
+[![License](https://img.shields.io/github/license/cisagov/ansible-role-chrony-aws)](https://spdx.org/licenses/)
 [![CodeQL](https://github.com/cisagov/ansible-role-chrony-aws/workflows/CodeQL/badge.svg)](https://github.com/cisagov/ansible-role-chrony-aws/actions/workflows/codeql-analysis.yml)
 
 An Ansible role for installing
