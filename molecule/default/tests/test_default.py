@@ -27,7 +27,7 @@ def check_chrony_enabled(host):
         svc = "chronyd"
     else:
         # Should never get here
-        assert False, f"Unknown distribution {host.system_info.distribution}"
+        raise ValueError(f"Unknown distribution {host.system_info.distribution}")
 
     assert host.service(svc).is_enabled
 
@@ -39,7 +39,7 @@ def check_config(host):
         filename = "/etc/chrony/chrony.conf"
     else:
         # Should never get here
-        assert False, f"Unknown distribution {host.system_info.distribution}"
+        raise ValueError(f"Unknown distribution {host.system_info.distribution}")
 
     f = host.file(filename)
     assert f.exists
